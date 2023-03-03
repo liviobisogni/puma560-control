@@ -1,0 +1,81 @@
+close all, clear all, clc,
+
+
+%% ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+%                                INSTRUCTIONS
+%__________________________________________________________________________
+%
+% Please select one of the following controllers:
+%                   * 'adaptiveCT'
+%                   * 'adaptiveBS'
+%
+controller = 'adaptiveBS';
+%
+% Please select one of the following tasks:
+%                   * 'costanti'
+%                   * 'sinusoidi'
+%                   * 'finite_fourier_series'
+task = 'finite_fourier_series';
+%%_________________________________________________________________________
+
+
+
+%% ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+%                           SIMULATION PARAMETERS
+%__________________________________________________________________________
+% Simulation Time
+timeSpan = 20;                                      % Duration  [s]
+timeStep = 0.001;                                   % Time step [s]
+
+time = [0:timeStep:timeSpan]';
+
+
+%% Modello
+% % mdl_m1 = 0;                                 % mass of link 1    [kg]
+% % mdl_m2 = 17.4;                              % mass of link 2    [kg]
+% % mdl_m3 = 4.8;                               % mass of link 3    [kg]
+% % mdl_m4 = 0.82;                              % mass of link 4    [kg]
+% % mdl_m5 = 0.34;                              % mass of link 5    [kg]
+% % mdl_m6 = 0.09;                              % mass of link 6    [kg]
+
+%% Stima iniziale
+est_m1 = 0.05;                                  % mass of link 1    [kg]
+est_m2 = 16;                                    % mass of link 2    [kg]
+est_m3 = 5;                                     % mass of link 3    [kg]
+est_m4 = 0.7;                                   % mass of link 4    [kg]
+est_m5 = 0.5;                                   % mass of link 5    [kg]
+est_m6 = 0.15;                                  % mass of link 6    [kg]
+
+
+[p560, p560_est] = mdl_puma560_param(est_m1, est_m2, est_m3, est_m4, est_m5, est_m6);
+
+% Initial Dynamic Parameter Guess
+init_pi         % generates pi_real and pi_est_0
+
+
+%% Traiettoria
+if strcmpi(task, 'finite_fourier_series')
+    finite_fourier_series
+elseif strcmpi(task, 'sinusoidi')
+    sinusoidi
+elseif strcmpi(task, 'costanti')
+    costanti
+else
+    error('Invalid task.');
+end
+
+
+
+%% Controllore
+if strcmpi(controller, 'adaptiveCT')
+    adaptiveCT_main
+elseif strcmpi(controller, 'adaptiveBS')
+    adaptiveBS_main
+else
+    error('Invalid controller type. Possible values: ''adaptiveCT'' or ''adaptiveBS''.');
+end
+
+
+
+%% Plot
+plot_adaptive
