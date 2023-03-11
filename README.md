@@ -50,7 +50,8 @@ To use inverse kinematic (using gradient descent and Levenberg-Marquardt), propo
 		* `PD`: proportional-derivative
 		* `CT`: computed torque
 		* `BS`: backstepping
-	2. Choose a task by modifying the `task` variable:		* `position_control`: position control (compatible with `Kinematic_grad` and `Kinematic_LevMar`)
+	2. Choose a task by modifying the `task` variable:
+		* `position_control`: position control (compatible with `Kinematic_grad` and `Kinematic_LevMar`)
 		* `pick_and_place`: pick and place (compatible with `PD`, `CT`, and `BS`)
 		* `circular_trajectory_tracking`: circular trajectory tracking (compatible with `CT`, `BS`, and `Kinematic_LevMar`)
 2. Edit `src/plot_Simulation.m`:
