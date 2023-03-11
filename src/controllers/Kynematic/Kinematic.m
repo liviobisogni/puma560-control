@@ -4,10 +4,10 @@ puma560_RoboticsSystemToolbox
 if strcmpi(controller, 'Kinematic_grad')
     K = 1 * eye(6);
 elseif strcmpi(controller, 'Kinematic_LevMar')
-    if strcmpi(task, 'controllo_di_posizione')
+    if strcmpi(task, 'position_control')
         K = 1 * eye(6);
         mu0 = 1/1000;
-    elseif strcmpi(task, 'traiettoria_circolare')
+    elseif strcmpi(task, 'circular_trajectory_tracking')
         K = 20 * eye(6);
         mu0 = 1/1000;
     end
@@ -16,18 +16,18 @@ end
 
 %% Lancio la Simulazione
 if strcmpi(controller, 'Kinematic_grad')
-    if strcmpi(task, 'controllo_di_posizione')
+    if strcmpi(task, 'position_control')
         model = "Simulation_Kinematic_grad_ConDiPos";
     else
-        error('Choose ''controllo_di_posizione'' task instead.')
+        error('Choose ''position_control'' task instead.')
     end
 elseif strcmpi(controller, 'Kinematic_LevMar')
-    if strcmpi(task, 'controllo_di_posizione')
+    if strcmpi(task, 'position_control')
         model = "Simulation_Kinematic_LevMar_ConDiPos";
-    elseif strcmpi(task, 'traiettoria_circolare')
+    elseif strcmpi(task, 'circular_trajectory_tracking')
         model = "Simulation_Kinematic_LevMar_InsDiMov";
     else
-        error('Choose ''controllo_di_posizione'' or ''traiettoria_circolare'' task instead.')
+        error('Choose ''position_control'' or ''circular_trajectory_tracking'' task instead.')
     end
 else
     error('Choose ''Kinematic_grad'' or ''Kinematic_LevMar'' controller instead.')

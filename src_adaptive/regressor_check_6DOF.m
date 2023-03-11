@@ -19,7 +19,7 @@ init_pi
 pi0 = pi_real;
 
 %% Trajectory
-finite_fourier_series
+finite_fourier_series_trajectory_tracking
 
 
 %% Check regressore su traiettoria

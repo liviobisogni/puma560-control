@@ -4,17 +4,17 @@
 %
 % It generates and (potentially) saves all the figures in the desired format.
 %
-saving_flag     = 0;                                                    % if '1', images (i.e., plots) are saved (as .png files);
-                                                                        % otherwise, they ain't saved
-title_flag      = 1;                                                    % if '1', titles are added to images;
-                                                                        % otherwise, they ain't added
-threeDplot_flag = 1;
+saving_flag     = 0;                                                        % if '1', images (i.e., plots) are saved (as .png files);
+                                                                            % otherwise, they ain't saved
+title_flag      = 1;                                                        % if '1', titles are added to images;
+                                                                            % otherwise, they ain't added
+threeDplot_flag = 1;                                                        % if '1', plots robot's trajectory in 3D space
 %
-image_extension = 'pdf';                                                % pdf, png, ...
-images_path     = '/Users/v/Documents/MATLAB/Tavole/Tavola_1a/images';  % It is the folder where images will be saved.
-                                                                        % *** !!! change this path if needed !!! ***
-main_path       = '/Users/v/Documents/MATLAB/Tavole/Tavola_1a';         % It is the folder containing the source code.
-                                                                        % *** !!! change this path if needed !!! ***
+image_extension = 'pdf';                                                    % pdf, png, ...
+images_path     = '/Users/username/Documents/MATLAB/puma560-control/img/';  % It is the folder where images will be saved.
+                                                                            % *** !!! change this path if needed !!! ***
+main_path       = '/Users/username/Documents/MATLAB/puma560-control/src/';  % It is the folder containing the source code.
+                                                                            % *** !!! change this path if needed !!! ***
 %%_________________________________________________________________________
 
 
@@ -46,7 +46,7 @@ end
 
 
 
-%% Plot traiettoria giunti
+%% Plot joint trajectories
 if (strcmpi(controller, 'PD') || strcmpi(controller, 'CT') || strcmpi(controller, 'BS'))
 
     figure('Renderer', 'painters', 'Position', [10 800 1000 564]);
@@ -63,7 +63,6 @@ if (strcmpi(controller, 'PD') || strcmpi(controller, 'CT') || strcmpi(controller
         eval(['plot(time, q_des(:,' num2str(i) '),''r--'',''LineWidth'', plot_LineWidth)'])
         xlabel('$t$ [s]', 'Interpreter','latex', 'FontSize', font_size_XYlabel)
         ylabel(sprintf('Joint %d [rad]',i), 'Interpreter','latex', 'FontSize', font_size_XYlabel)
-%         legend(sprintf('$\\widehat{q}_%d$',i), sprintf('$q_%d$',i), 'Interpreter','latex', 'FontSize', font_size_legend)
         legend(sprintf('$q_%d$',i), sprintf('$q_{%d,d}$',i), 'Interpreter','latex', 'FontSize', font_size_legend)
     end
 
@@ -80,7 +79,7 @@ end
 
 
 
-%% Plot errore ai giunti
+%% Plot joint errors
 if (strcmpi(controller, 'PD') || strcmpi(controller, 'CT') || strcmpi(controller, 'BS'))
 
     figure('Renderer', 'painters', 'Position', [10 800 1000 564]);
@@ -117,11 +116,11 @@ end
 
 %% End effector
 if (strcmpi(controller, 'PD') || strcmpi(controller, 'CT') || strcmpi(controller, 'BS'))
-    % Cinematica diretta
+    % Direct kinematics
     tmp_T = p560.fkine(out.q.signals.values);
-    % Traslazione EE
+    % Translate the end-effector
     tmp_p = transl(tmp_T);
-    % RPY E.E
+    % Rotate the end-effector
     tmp_r = tr2rpy(tmp_T);
 elseif (strcmpi(controller, 'Kinematic_grad') || strcmpi(controller, 'Kinematic_LevMar'))
     tmp_p = out.ee_pos.signals.values;
@@ -132,7 +131,7 @@ end
 
 figure('Renderer', 'painters', 'Position', [10 800 1000 564]);
 
-% EE translation
+% Plot the end-effector translation
 subplot(2,2,1)
 ax = gca;
 ax.XAxis.FontSize = font_size_numbers_of_axes;
@@ -148,7 +147,7 @@ ylabel('Spatial coordinates [m]', 'Interpreter','latex', 'FontSize', font_size_X
 legend('x', 'y', 'z', 'Interpreter','latex', 'FontSize', font_size_legend)
 title('EE translation', 'fontweight', 'bold', 'Interpreter','latex', 'FontSize', font_size_title)
 
-% EE orientation
+% Plot the end-effector orientation
 subplot(2,2,2)
 ax = gca;
 ax.XAxis.FontSize = font_size_numbers_of_axes;
@@ -164,7 +163,7 @@ ylabel('RPY angles [rad]', 'Interpreter','latex', 'FontSize', font_size_XYlabel)
 legend('Roll', 'Pitch', 'Yaw', 'Interpreter','latex', 'FontSize', font_size_legend)
 title('EE orientation', 'fontweight', 'bold', 'Interpreter','latex', 'FontSize', font_size_title)
 
-% Plot piano XY
+%% Plot the end-effector trajectory in XY-plane
 subplot(2,2,3)
 ax = gca;
 ax.XAxis.FontSize = font_size_numbers_of_axes;
@@ -178,7 +177,7 @@ ylabel('$y$ [m]', 'Interpreter','latex', 'FontSize', font_size_XYlabel)
 title('XY view', 'fontweight', 'bold', 'Interpreter','latex', 'FontSize', font_size_title)
 axis equal
 
-% Plot 3d
+%% Plot the robot's trajectory in 3D space
 subplot(2,2,4)
 ax = gca;
 ax.XAxis.FontSize = font_size_numbers_of_axes;
@@ -202,14 +201,7 @@ end
 
 
 
-
-
-
-
-
-
-
-%% Plot errore end-effector
+%% Plot end-effector errors
 if (strcmpi(controller, 'Kinematic_grad') || strcmpi(controller, 'Kinematic_LevMar'))
 
     figure('Renderer', 'painters', 'Position', [10 800 1000 564]);
@@ -241,7 +233,6 @@ if (strcmpi(controller, 'Kinematic_grad') || strcmpi(controller, 'Kinematic_LevM
     legend('$e_4=\xi_{d,4}-\xi_4$','$e_5=\xi_{d,5}-\xi_5$','$e_6=\xi_{d,6}-\xi_6$', 'Interpreter','latex', 'FontSize', font_size_legend)
 
     if (title_flag == 1)
-        % TITLE
         ax = axes;
         t1 = title('\textbf{End-effector error}', 'FontSize', font_size_title, 'Interpreter', 'Latex');
         ax.Visible = 'off';
@@ -256,7 +247,7 @@ end
 
 
 
-%% Visualizzo traiettoria end-effector
+%% Plot end-effector trajectory
 if (threeDplot_flag == 1)
     f = figure('Renderer', 'painters', 'Position', [10 800 1000 564]);
     ax = gca;
@@ -273,7 +264,6 @@ if (threeDplot_flag == 1)
     zlabel('$z$ [m]', 'Interpreter','latex', 'FontSize', font_size_XYlabel)
 
     if (title_flag == 1)
-        % TITLE
         ax = axes;
         t1 = title('\textbf{End-effector trajectory}', 'FontSize', font_size_title, 'Interpreter', 'Latex');
         ax.Visible = 'off';

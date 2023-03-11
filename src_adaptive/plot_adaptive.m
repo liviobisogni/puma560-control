@@ -12,12 +12,12 @@ saving_flag     = 0;                                                            
                                                                                     % otherwise, they ain't saved
 title_flag      = 1;                                                                % if '1', titles are added to images;
                                                                                     % otherwise, they ain't added
-threeDplot_flag = 1;
+threeDplot_flag = 1;                                                                % if '1', plots robot's trajectory in 3D space
 %
 image_extension = 'pdf';                                                            % pdf, png, ...
-images_path     = '/Users/v/Documents/MATLAB/Tavole/Tavola_1b(adaptive)/images';    % It is the folder where images will be saved.
+images_path     = '/Users/username/Documents/MATLAB/puma560-control/img_adaptive/'; % It is the folder where images will be saved.
                                                                                     % *** !!! change this path if needed !!! ***
-main_path       = '/Users/v/Documents/MATLAB/Tavole/Tavola_1b(adaptive)';           % It is the folder containing the source code.
+main_path       = '/Users/username/Documents/MATLAB/puma560-control/src_adaptive/'; % It is the folder containing the source code.
                                                                                     % *** !!! change this path if needed !!! ***
 %%_________________________________________________________________________
 
@@ -49,7 +49,7 @@ end
 
 
 
-%% Plotto stime masse
+%% Plot estimated masses
 figure('Renderer', 'painters', 'Position', [10 800 1000 564]);
 
 for i = 1 : n       % i-th Link
@@ -83,7 +83,7 @@ end
 
 
 
-%% Plot traiettoria giunti
+%% Plot joint trajectories
 figure('Renderer', 'painters', 'Position', [10 800 1000 564]);
 
 for i = 1 : n       % i-th Link
@@ -116,7 +116,7 @@ end
 
 
 
-%% Plot errore ai giunti
+%% Plot joint errors
 figure('Renderer', 'painters', 'Position', [10 800 1000 564]);
 
 ax = gca;
@@ -149,7 +149,7 @@ end
 
 
 
-%% Visualizzo traiettoria end-effector
+%% Plot the robot's trajectory in 3D space
 if (threeDplot_flag == 1)
     f = figure('Renderer', 'painters', 'Position', [10 800 1000 564]);
     ax = gca;
@@ -167,7 +167,6 @@ if (threeDplot_flag == 1)
     zlabel('$z$ [m]', 'Interpreter','latex', 'FontSize', font_size_XYlabel)
 
     if (title_flag == 1)
-        % TITLE
         ax = axes;
         t1 = title('\textbf{End-effector trajectory}', 'FontSize', font_size_title, 'Interpreter', 'Latex');
         ax.Visible = 'off';

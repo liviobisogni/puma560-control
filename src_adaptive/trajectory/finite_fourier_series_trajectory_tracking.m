@@ -2,7 +2,7 @@
 omega = 1;                                % [Hz]      fundamental frequency
 
 
-%% Parametri serie di Fourier
+%% Finite FOurier Series parameters
 % Link 1
 a(1,1) = 0.88;
 a(1,2) = 0.26;
@@ -74,23 +74,23 @@ q_offset(5) = 0;
 q_offset(6) = 0;
 
 
-% Posizioni giunti desiderate
+% Desired joint positions
 q_des = zeros(length(time),6);
-% Velocità giunti desiderate
+% Desired joint velocities
 q_vel_des = zeros(length(time),6);
-% Accelerazione giunti desiderate
+% Desired joint accelerations
 q_acc_des = zeros(length(time),6);
 
 n = 6;      % # links
-L = 4;      % ordine della serie di Fourier
+L = 4;      % Fourier series order
 
-for k = 1 : length(time)                    % istante temporale (discreto)
-    t = time(k);                            % tempo [s]
-    for i = 1 : n                           % indice link
+for k = 1 : length(time)                    % time instant (discrete)
+    t = time(k);                            % time [s]
+    for i = 1 : n                           % link index
         
         q_des(k,i) = q_offset(i);
         
-        for l = 1 : 4                       % serie di Fourier di ordine 4
+        for l = 1 : 4                       % 4th order Fourier series
             q_des(k,i)     = q_des(k,i)     + a(i,l) / (omega * l) * sin(omega * l * t) - b(i,l) / (omega * l) * cos(omega * l * t);
             q_vel_des(k,i) = q_vel_des(k,i) + a(i,l) * cos(omega * l * t)               + b(i,l) * sin(omega * l * t);
             q_acc_des(k,i) = q_acc_des(k,i) - a(i,l) * omega * l * sin(omega * l * t)   + b(i,l) * omega * l * cos(omega * l * t);

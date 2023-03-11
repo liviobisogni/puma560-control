@@ -12,10 +12,10 @@ close all, clear all, clc,
 controller = 'adaptiveBS';
 %
 % Please select one of the following tasks:
-%                   * 'costanti'
-%                   * 'sinusoidi'
-%                   * 'finite_fourier_series'
-task = 'finite_fourier_series';
+%                   * 'position_control'
+%                   * 'sinusoidal_trajectory_tracking'
+%                   * 'finite_fourier_series_trajectory_tracking'
+task = 'finite_fourier_series_trajectory_tracking';
 %%_________________________________________________________________________
 
 
@@ -23,14 +23,14 @@ task = 'finite_fourier_series';
 %% ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 %                           SIMULATION PARAMETERS
 %__________________________________________________________________________
-% Simulation Time
+% Simulation time
 timeSpan = 20;                                      % Duration  [s]
 timeStep = 0.001;                                   % Time step [s]
 
 time = [0:timeStep:timeSpan]';
 
 
-%% Modello
+%% Model (true values)
 % % mdl_m1 = 0;                                 % mass of link 1    [kg]
 % % mdl_m2 = 17.4;                              % mass of link 2    [kg]
 % % mdl_m3 = 4.8;                               % mass of link 3    [kg]
@@ -38,7 +38,7 @@ time = [0:timeStep:timeSpan]';
 % % mdl_m5 = 0.34;                              % mass of link 5    [kg]
 % % mdl_m6 = 0.09;                              % mass of link 6    [kg]
 
-%% Stima iniziale
+%% Initial estimation
 est_m1 = 0.05;                                  % mass of link 1    [kg]
 est_m2 = 16;                                    % mass of link 2    [kg]
 est_m3 = 5;                                     % mass of link 3    [kg]
@@ -53,20 +53,20 @@ est_m6 = 0.15;                                  % mass of link 6    [kg]
 init_pi         % generates pi_real and pi_est_0
 
 
-%% Traiettoria
-if strcmpi(task, 'finite_fourier_series')
-    finite_fourier_series
-elseif strcmpi(task, 'sinusoidi')
-    sinusoidi
-elseif strcmpi(task, 'costanti')
-    costanti
+%% Trajectory
+if strcmpi(task, 'finite_fourier_series_trajectory_tracking')
+    finite_fourier_series_trajectory_tracking
+elseif strcmpi(task, 'sinusoidal_trajectory_tracking')
+    sinusoidal_trajectory_tracking
+elseif strcmpi(task, 'position_control')
+    position_control
 else
     error('Invalid task.');
 end
 
 
 
-%% Controllore
+%% Controller
 if strcmpi(controller, 'adaptiveCT')
     adaptiveCT_main
 elseif strcmpi(controller, 'adaptiveBS')

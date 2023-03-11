@@ -1,9 +1,9 @@
 
-% Posizioni giunti desiderate
+% Desired joint positions
 q_des = zeros(length(time),6);
-% Velocità giunti desiderate
+% Desired joint velocities
 q_vel_des = zeros(length(time),6);
-% Accelerazione giunti desiderate
+% Desired joint accelerations
 q_acc_des = zeros(length(time),6);
 
 
