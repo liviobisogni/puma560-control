@@ -1,7 +1,6 @@
-# Control of a 6-DOF Serial Manipulator
+# PUMA 560: Control of a 6-DOF Robot Arm
 
-This is a project for controlling a fully-actuated 6-DOF serial manipulator. The manipulator used is a PUMA 560 with six rotoidal joints. The manipulator's description and Denavit-Hartenberg table are based on [[1]](#references-1). The regression matrix was computed using [[2]](#references-2).
-
+This is a project for controlling a fully-actuated robot arm with six degrees of freedom (DOF). The manipulator is a PUMA 560 with six rotoidal joints. The manipulator's description and Denavit-Hartenberg table are based on [[1]](#references-1), and the regression matrix was computed using [[2]](#references-2).
 
 <p align="center">
 	<a href="#prerequisites">Prerequisites</a>
@@ -57,10 +56,10 @@ To use inverse kinematic (using gradient descent and Levenberg-Marquardt), propo
 2. Edit `src/plot_Simulation.m`:
 	1. Set `saving_flag` to 1 if you want to save plot images
 	2. Set `title_flag` to 1 if you want to add titles to the plots
-	3. Set `threeDplot_flag ` to 1 if you want to plot the robot's trajectory in 3D space
-	4. Set `image_extension ` to the file format you want to use when saving the plots (if `title_flag` is 1), e.g., 'pdf', 'png', 'jpg'.
-	5. Set `images_path ` to the directory where you want to save the plot images (if `title_flag` is 1), e.g., '/Users/username/Documents/MATLAB/puma560-control/img/'
-	6. Set `main_path ` to the directory where the source code is located (if `title_flag` is 1), e.g., '/Users/username/Documents/MATLAB/puma560-control/src/'
+	3. Set `threeDplot_flag` to 1 if you want to plot the robot's trajectory in 3D space
+	4. Set `image_extension` to the file format you want to use when saving the plots (if `title_flag` is 1), e.g., 'pdf', 'png', 'jpg'.
+	5. Set `images_path` to the directory where you want to save the plot images (if `title_flag` is 1), e.g., '/Users/username/Documents/MATLAB/puma560-control/img/'
+	6. Set `main_path` to the directory where the source code is located (if `title_flag` is 1), e.g., '/Users/username/Documents/MATLAB/puma560-control/src/'
 3. Run `src/main_puma560.m`
 
 ### Adaptive Control Methods
@@ -71,16 +70,16 @@ To use adaptive computed torque and adaptive backstepping controllers:
 	1. Choose a controller by modifying the `controller` variable:
 		* `adaptiveCT`: adaptive computed torque
 		* `adaptiveBS`: adaptive backstepping
-	2. Choose a task by modifying the `task` variable:		* `position_control `: position control
+	2. Choose a task by modifying the `task` variable:		* `position_control`: position control
 		* `sinusoidal_trajectory_tracking `: sinusoidal trajectory tracking in joint space
 		* `finite_fourier_series_trajectory_tracking`: Finite Fourier Series (FFS) trajectory tracking in joint space
 2. Edit `src_adaptive/plot_adaptive.m`:
 	1. Set `saving_flag` to 1 if you want to save plot images
 	2. Set `title_flag` to 1 if you want to add titles to the plots
-	3. Set `threeDplot_flag ` to 1 if you want to plot the robot's trajectory in 3D space
-	4. Set `image_extension ` to the file format you want to use when saving the plots (if `title_flag` is 1), e.g., 'pdf', 'png', 'jpg'.
-	5. Set `images_path ` to the directory where you want to save the plot images (if `title_flag` is 1), e.g., '/Users/username/Documents/MATLAB/puma560-control/img/'
-	6. Set `main_path ` to the directory where the source code is located (if `title_flag` is 1), e.g., '/Users/username/Documents/MATLAB/puma560-control/src/'
+	3. Set `threeDplot_flag` to 1 if you want to plot the robot's trajectory in 3D space
+	4. Set `image_extension` to the file format you want to use when saving the plots (if `title_flag` is 1), e.g., 'pdf', 'png', 'jpg'.
+	5. Set `images_path` to the directory where you want to save the plot images (if `title_flag` is 1), e.g., '/Users/username/Documents/MATLAB/puma560-control/img/'
+	6. Set `main_path` to the directory where the source code is located (if `title_flag` is 1), e.g., '/Users/username/Documents/MATLAB/puma560-control/src/'
 3. Run `src_adaptive/main_puma560_adaptive.m`
 
 
