@@ -71,7 +71,7 @@ To use adaptive computed torque and adaptive backstepping controllers:
 		* `adaptiveCT`: adaptive computed torque
 		* `adaptiveBS`: adaptive backstepping
 	2. Choose a task by modifying the `task` variable:		* `position_control`: position control
-		* `sinusoidal_trajectory_tracking `: sinusoidal trajectory tracking in joint space
+		* `sinusoidal_trajectory_tracking`: sinusoidal trajectory tracking in joint space
 		* `finite_fourier_series_trajectory_tracking`: Finite Fourier Series (FFS) trajectory tracking in joint space
 2. Edit `src_adaptive/plot_adaptive.m`:
 	1. Set `saving_flag` to 1 if you want to save plot images
