@@ -4,7 +4,7 @@
 %
 % It generates and (potentially) saves all the figures in the desired format.
 %
-saving_flag     = 0;                                                        % if '1', images (i.e., plots) are saved (as .png files);
+saving_flag     = 0;                                                        % if '1', images (i.e., plots) are saved;
                                                                             % otherwise, they ain't saved
 title_flag      = 1;                                                        % if '1', titles are added to images;
                                                                             % otherwise, they ain't added
@@ -34,8 +34,8 @@ m_subplot                   = 3;                    % number of rows composing a
 n_subplot                   = 2;                    % number of columns composing a "subplot-type" plot
 %%_________________________________________________________________________
 
-n = p560.n;                                          % #Links
-if ((m_subplot * n_subplot) / n ~= 1)   % n is the number of links
+n = p560.n;                                          % Number of links
+if ((m_subplot * n_subplot) / n ~= 1)
     error("(m_subplot * n_subplot) / n != 1  :-(")
 end
 

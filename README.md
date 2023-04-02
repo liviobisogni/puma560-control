@@ -12,6 +12,10 @@ This is a project for controlling a fully-actuated robot arm with six degrees of
 	<a href="#sample-images">Sample Images</a>
 </p>
 
+<p align="center" width="100%">
+    <img width="49.7%" src="img/CT__pick_and_place__animation.gif"> <img width="49.7%" src="img/Kinematic_LevMar__traiettoria_circolare__animation.gif">
+</p>
+
 
 ## Overview
 The project includes several control aspects, including inverse kinematic control, dynamic control, and adaptive control. The following is a list of the simulations and techniques included in the project:
